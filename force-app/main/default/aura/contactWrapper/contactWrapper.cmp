@@ -1,0 +1,13 @@
+<!--
+  @description       : 
+  @author            : De Simone Raffaele
+  @group             : 
+  @last modified on  : 16-02-2021
+  @last modified by  : De Simone Raffaele
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   16-02-2021   De Simone Raffaele   Initial Version
+-->
+<aura:component implements="force:hasRecordId,flexipage:availableForAllPageTypes">
+	<c:contactUpdate recordId="{!v.recordId}"/>
+</aura:component>

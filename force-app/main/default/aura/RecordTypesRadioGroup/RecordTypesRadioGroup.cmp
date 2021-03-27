@@ -1,0 +1,46 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes,force:hasSObjectName,force:hasRecordId"
+  controller="RecordTypesController"
+>
+  <aura:attribute name="options" type="List" default="[]" />
+  <aura:attribute name="value" type="String" default="" />
+  <aura:attribute name="label" type="String" default="Select a record type" />
+  <aura:attribute name="record" type="Object" />
+  <aura:attribute name="recordLoadError" type="String" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:handler name="change" value="{!v.options}" action="{!c.itemsChange}" />
+
+  <force:recordData
+    aura:id="recordLoader"
+    recordId="{!v.recordId}"
+    fields="RecordTypeId"
+    targetFields="{!v.record}"
+    targetError="{!v.recordLoadError}"
+	recordUpdated="{!c.recordUpdated}"
+	mode="EDIT"
+  />
+
+  <lightning:card title="{!v.sObjectName+' update'}">
+    <aura:set attribute="actions">
+      <lightning:buttonIcon
+        iconName="utility:loop"
+        alternativeText="Refresh"
+        title="Refresh"
+        onclick="{!c.handleRefresh}"
+      />
+    </aura:set>
+    <p class="slds-p-horizontal_small">
+      <aura:if isTrue="{! not(empty(v.options)) }">
+        <lightning:radioGroup
+          name="radioGroup"
+          label="{!v.label}"
+          options="{!v.options}"
+          value="{!v.value}"
+          type="radio"
+          onchange="{!c.updateRecordType}"
+        />
+      </aura:if>
+    </p>
+  </lightning:card>
+</aura:component>

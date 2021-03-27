@@ -1,0 +1,12 @@
+<template>
+	<lightning-card title="Azioni">
+		<p class="slds-p-horizontal_small">
+			<lightning-record-form
+				record-id={recordId}
+				object-api-name={objectApiName}
+				fields={fields}>
+			</lightning-record-form>
+		</p>
+		<lightning-button label="Articolo padre" title="Collega articolo padre" onclick={handleClick} class="slds-m-around_x-small slds-align_absolute-center"></lightning-button>
+	</lightning-card>
+</template>

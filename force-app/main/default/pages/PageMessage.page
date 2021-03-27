@@ -1,0 +1,55 @@
+<apex:page sidebar="false" applyhtmlTag="false" showHeader="false" applyBodyTag="false" standardController="Account" extensions="MyController"
+    lightningStylesheets="true" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <apex:slds />
+        </head>
+
+        <body>
+            <apex:pageblock >
+                <apex:form onsubmit="getMyControllerName(event)" style="width: 50%;margin:0 auto">
+                    <apex:pagemessages />
+                    <div class="slds-scope" style="margin:0 auto;display:block;width:fit-content">
+                        <button type="submit" value="invia" class="slds-button slds-button_brand">Invia</button>
+                    </div>
+                </apex:form>
+            </apex:pageblock>
+            <script>
+                function getMyControllerName(event) {
+                    var value = event.submitter.value;
+                    console.log('value: ' + value);
+                    event.preventDefault();
+                    if (value === "invia") {
+                        Visualforce.remoting.Manager.invokeAction(
+                            '{!$RemoteAction.MyController.getName}',
+                            handleResult
+                        );
+                    }
+                }
+
+                function handleResult(result, event) {
+                    if (event.status) {
+                        remoteResult = result;
+                    } else {
+                        remoreResult = event.message;
+                    }
+                    showToast({
+                        "title": "Success!",
+                        "message": remoteResult,
+                        "type": "success"
+                    });
+                }
+                function back() {
+                    sforce.one.navigateToSObject("{!Account}");
+                }
+                function showToast(toast) {
+                    sforce.one.showToast(toast);
+                }
+            </script>
+        </body>
+    </html>
+</apex:page>
